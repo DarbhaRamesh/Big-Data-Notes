@@ -228,3 +228,70 @@ search a word in a directory/ file
 ``` console
 grep file *
 ```
+
+---
+
+##### HDFS commands
+
+List of all the Hadoop commands available
+
+``` console
+hadoop fs
+hdfs dfs
+```
+
+List files/directories in HDFS in your home directory
+
+in local, your home directory will be in /home/
+in HDFS, your home directory will be in /user/
+
+``` console
+hadoop fs -ls /user/youruserid
+hadoop fs -ls
+```
+
+Most of the hdfs commands will interact with name node. only when we are reviving data then it will interact with data node
+
+list files in HDFS based on file size in desc order
+
+``` console
+hadoop fs -ls -S -h /
+```
+
+filter results from ls command
+
+``` console
+hadoop fs -ls /user | grep user1
+```
+
+create directory inside another non existing directory (-p pattern)
+
+``` console
+hadoop fs -mkdir -p /user/user1/dir1/dir2
+```
+
+upload a file from local to HDFS
+
+``` console
+hadoop fs -put <local file path> <hdfs path>
+hadoop fs -copyFromLocal <local file path> <hdfs path>
+```
+
+download a file from HDFS to local
+
+``` console
+hadoop fs -get <hdfs path> <local path>
+hadoop fs -copyToLocal <hdfs path> <local path>
+```
+
+cp command in Hadoop will be slow as the data is copied to a new file. instead mv will be quick as only metadata will be changed
+
+some useful commands to get info about the HDFS and details of file in HDFS
+
+``` console
+hadoop fs -df -h /user/userid
+hadoop fsck <hdfs file path> -files -blocks -locations
+```
+
+---
+

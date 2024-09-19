@@ -112,17 +112,11 @@ For reporting, serving layer will be Data warehouse.
 To build some custom UI, No SQL DB will be used. 
 To build an application, database will be used
 
-Hadoop 
+Hadoop : Multiple data sources -> Sqoop -> HDFS -> MapReduce(outdated)/ Spark -> Hive/ HBase
 
-Multiple data sources -> Sqoop -> HDFS -> MapReduce(outdated)/ Spark -> Hive/ HBase
+Azure : Multiple data sources -> Azure Data Factory -> ADLS Gen2 -> Azure Data Factory/ Synapse -> Azure SQL/ Cosmos DB
 
-Azure
-
-Multiple data sources -> Azure Data Factory -> ADLS Gen2 -> Azure Data Factory/ Synapse -> Azure SQL/ Cosmos DB
-
-AWS
-
-Multiple data sources -> AWS Glue -> Amazon S3 -> AWS Databricks/ Athena/ Redshift -> AWS RDS / Dynamo DB
+AWS : Multiple data sources -> AWS Glue -> Amazon S3 -> AWS Databricks/ Athena/ Redshift -> AWS RDS / Dynamo DB
 
 For computing, either we process data in a dedicated server or using a serverless (uses resources from shared pool) architecture. **In serverless, performance is not guaranteed but cost effective.**
 
@@ -152,11 +146,10 @@ How does a name node knows a data node is dead? Every data node sends **heartbea
 
 Other question is how many parts a file can be broken. For this, there is concept of **default blob size** which is set by HDFS admin (128 mb) and based on the default size the file is broken into multiple parts / blobs.
 
-Now, what if name node dies? There is again a **secondary name node** which will takes its place but chances of going down is very minimal.
+Now, what if name node dies? There is again a **secondary name node** which will takes its place but chances of going down is very minimal. It is for fault tolerance.
 
 Processing the data on the node where it is kept, this is called **Data locality**. Hadoop works on this principle.
 
+**Name Node Federation** - In newer version of Hadoop, we can have more than one name node, Metadata is split among these. It provides scalability.
+
 ---
-
-
-

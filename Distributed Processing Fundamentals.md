@@ -3,14 +3,14 @@ Lets understand MapReduce with an example.
 
 Lets say we have data of LinkedIn where one user viewed another users profile. For simplicity, we are taking 6 lines of data
 
-| s.no | from user | to user |
-| ---- | --------- | ------- |
-| 1    | User A    | User B  |
-| 2    | User B    | User C  |
-| 3    | User A    | User C  |
-| 4    | User D    | User B  |
-| 5    | User B    | User A  |
-| 6    | User E    | User B  |
+| s.no. | from_user | to_user |
+| ----- | --------- | ------- |
+| 1     | User A    | User B  |
+| 2     | User B    | User C  |
+| 3     | User A    | User C  |
+| 4     | User D    | User B  |
+| 5     | User B    | User A  |
+| 6     | User E    | User B  |
 Above data can be interpreted as User A visited user B's profile in LinkedIn. We want to understand how many views are there for a particular profile.
 
 Step 1 - Record Reader Output

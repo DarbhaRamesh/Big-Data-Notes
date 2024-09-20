@@ -327,3 +327,5 @@ The data from the block is converted to key value pair by **record reader** wher
 Bringing the mapper output to one node is called **shuffling activity**. After this, the data is sorted based on the key which is called **sorting activity**. In short, before a reduce activity, **shuffle-sort** activity happens. This activity is performed by Hadoop framework. As a programmer, we only write map code and reduce code.
 
 Since parallelism is achieved by mapper, **more processing should be at mapper end**. If more processing is at reducer end then we are deviating from the distributed framework as most of the processing is done in single node.
+
+---

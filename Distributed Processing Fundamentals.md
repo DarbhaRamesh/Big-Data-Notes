@@ -3,7 +3,7 @@ Lets understand MapReduce with an example.
 
 Lets say we have data of LinkedIn where one user viewed another users profile. For simplicity, we are taking 6 lines of data
 
-| s.no. | from_user | to_user |
+| s.no. | from user | to user |
 | ----- | --------- | ------- |
 | 1     | User A    | User B  |
 | 2     | User B    | User C  |
@@ -127,3 +127,47 @@ MapReduce code can be executed from below command
 hadoop jar <jar path> <input hdfs file path> <non existing output directory>
 ```
 
+---
+##### Apache Spark
+
+Challenges with MapReduce.
+1. Performance is low because of lot of disk IO's (each MR task takes the data from HDFS, process it and place back in HDFS)
+2. Hard to write the MR code
+3. Supports only batch processing
+4. No interactive mode
+5. Lot of tools to learn
+6. Every problem should be thought in Map and Reduce way. 
+
+Apache Spark is a **multi language engine** for executing **data engineer, data science and machine learning** tasks on **single node or cluster**.
+
+Spark with Python - **PySpark**
+
+In Spark, from HDFS we read the data from disk and load it into memory and output of one spark transformation will be input of another and finally writes back to HDFS. In best case only 2 disks IO's are required. 
+
+For 5 MR job - 10 disk IO's but in spark only have 2 IO's in best case.
+
+**Spark abstracts the notion that we are writing code to run across the cluster.**
+
+---
+
+##### What is Databricks
+
+Apache Spark is Open Source. Databricks is a company and they have a product called Databricks.
+It is developed by same set of people who developed spark.
+Databricks is a spark with some extra features
+- Spark on cloud
+- Optimized spark
+- Cluster Management
+- Delta lake
+- Collaborate Notebooks
+- Implemented Security.
+
+![Spark Components](spark_components.png "Spark Components")
+
+Spark Core API's - you work at the RDD(Resilient Distributed Dataset) level. It is the hardest way to work but offers flexibility.
+
+Spark Higher level API's
+- Spark SQL/ Data Frames (simplest way to work - Spark SQL)
+- Structured Streaming 
+- MLlib
+- GraphX

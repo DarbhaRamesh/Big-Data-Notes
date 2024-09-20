@@ -71,7 +71,7 @@ Because of these challenges, Hadoop is slowing loosing its market share.
 ---
 ##### Apache Spark
 
-Its a **general purpose**, **in-memory** **compute engine**.
+Its a **general purpose**, **in-memory**, **distributed compute engine**.
 
 Spark is replacement of MapReduce, not for Hadoop.
 Because spark is in-memory compute engine, its much faster than MapReduce.

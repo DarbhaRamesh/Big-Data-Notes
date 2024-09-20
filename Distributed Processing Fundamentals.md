@@ -162,7 +162,7 @@ Databricks is a spark with some extra features
 - Collaborate Notebooks
 - Implemented Security.
 
-![Spark Components](spark_components.png "Spark Components")
+![Spark Components](./pictures/spark_components.png "Spark Components")
 
 Spark Core API's - you work at the RDD(Resilient Distributed Dataset) level. It is the hardest way to work but offers flexibility.
 

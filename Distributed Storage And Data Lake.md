@@ -295,3 +295,35 @@ hadoop fsck <hdfs file path> -files -blocks -locations
 
 ---
 
+##### HDFS vs Cloud Data Lakes
+
+HDFS is distributed file system and internally data is stored in blocks and is not persistent.
+- After you terminate the HDFS cluster, you loose the data stored in HDFS.
+- Incurs more cost as you have to keep you cluster always on, even to store the data.
+- works is silos. data in one cluster cannot be accessed by other cluster.
+
+Cloud Data Lakes is Object based storage and is persistent. Its a cost effective solution.
+- Object contains 
+	- id - unique identifier
+	- value - actual content
+	- metadata 
+---
+
+##### MapReduce
+
+MapReduce intuition is very important which forms basics for Spark.
+
+Its a **programming paradigm** which has two phases - **Map & Reduce**. where both takes input and produces output in **key, value pair**.
+
+code written by user will be packages and sent to each data node. First in all the data nodes, the **mappers** would run in parallel  on the block available in the node. The data is processed on the same node, this principle is called **Data Locality**.
+
+How many mappers will run? which is equivalent to number of blocks. But parallelism is based on number of data nodes. 
+
+Once all the map activity is completed in all the data nodes then output of the mapper is sent to one among these data nodes where **reduce** activity is performed. After this we get the desired output. 
+
+The data will be residing in a file. How will this data be converted to key value pair for mapper input?
+The data from the block is converted to key value pair by **record reader** where key is the address of the each line and value is the each line. This will be the input to mapper.
+
+Bringing the mapper output to one node is called **shuffling activity**. After this, the data is sorted based on the key which is called **sorting activity**. In short, before a reduce activity, **shuffle-sort** activity happens. This activity is performed by Hadoop framework. As a programmer, we only write map code and reduce code.
+
+Since parallelism is achieved by mapper, **more processing should be at mapper end**. If more processing is at reducer end then we are deviating from the distributed framework as most of the processing is done in single node.

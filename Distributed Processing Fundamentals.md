@@ -162,12 +162,45 @@ Databricks is a spark with some extra features
 - Collaborate Notebooks
 - Implemented Security.
 
+Spark Components
+
 ![Spark Components](./pictures/spark_components.png "Spark Components")
 
-Spark Core API's - you work at the RDD(Resilient Distributed Dataset) level. It is the hardest way to work but offers flexibility.
+Spark Core API's - you work at the RDD(Resilient Distributed Dataset) level. It is the hardest way to work but offers more flexibility. It is the basic unit which holds data.
 
 Spark Higher level API's
 - Spark SQL/ Data Frames (simplest way to work - Spark SQL)
 - Structured Streaming 
 - MLlib
 - GraphX
+
+---
+##### RDD 
+![RDD HDFS](./pictures/RDD_using_Hadoop.png "RDD HDFS")
+
+pseudo code
+- load file1 from HDFS/ data lake (rdd1)
+- rdd2 = rdd1.map
+- rdd3 - rdd2.filter
+- rdd3.collect() 
+
+There are  2 kind of operations in Apache Spark
+1. Transformation
+2. Action
+
+All the **transformations are lazy but actions are not**. (in the above example, first steps will not execute till the 4 line is reached.).  An **execution plan** is created for all the jobs in Spark using **DAG(Directed Acyclic Graph)**.
+
+In Spark we have **Driver node and worker node**.
+
+RDDs are 
+- Resilient because its fault tolerant. Lets say for any reason we lost rdd3, we can regenerate this from rdd2. Fault-tolerant as they can track **data lineage** information to allow for rebuilding lost data automatically on failure. 
+- Immutable.
+- Distributed because data is distributed across multiple nodes in cluster.
+
+Why transformations are lazy? - **Spark will have a chance to optimize the execution plan by looking at the DAG entirely.**
+
+Lets say we have a employee data with 1billions. but we are interested to look at one employee info. 
+
+If Spark transformations are not lazy, then it will load all the data and create 1 billion records and does all the transformations on this and filter the data at last step.
+
+Because its lazy, Spark will optimize the execution plan and run the job.

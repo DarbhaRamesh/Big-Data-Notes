@@ -211,7 +211,7 @@ Because its lazy, Spark will optimize the execution plan and run the job.
 
 First thing is to create a spark session which is entry point to Spark cluster, it has multiple context like SQL Context, Hive Context , Spark Context.
 
-``` spark
+``` python
 from pyspark.sql import SparkSession
 import getpass
 username = getpass.getuser()
@@ -229,3 +229,4 @@ rdd4 = rdd3.reduceByKey(lambda x,y : x+y)
 #rdd4.collect() # use with caution as it can bring large amount of data to local
 rdd4.saveAsTextFile("/user/itv005857/data/newoutput") # instead use this to load output to a file
 ```
+

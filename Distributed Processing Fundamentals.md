@@ -204,3 +204,28 @@ Lets say we have a employee data with 1billions. but we are interested to look a
 If Spark transformations are not lazy, then it will load all the data and create 1 billion records and does all the transformations on this and filter the data at last step.
 
 Because its lazy, Spark will optimize the execution plan and run the job.
+
+---
+
+##### Word count problem using spark
+
+First thing is to create a spark session which is entry point to Spark cluster, it has multiple context like SQL Context, Hive Context , Spark Context.
+
+``` spark
+from pyspark.sql import SparkSession
+import getpass
+username = getpass.getuser()
+spark = SparkSession. \
+	builder. \
+	config('spark.ui.port', '0'). \
+	config("spark.sql.warehouse.dir", f"/user/{username}/warehouse").\
+	enableHiveSupport(). \
+	master('yarn'). \
+	getOrCreate()
+rdd1 = spark.sparkContext.textFile("<path to input file>")
+rdd2 = rdd1.flatMap(lambda x : x.split(" "))
+rdd3 = rdd2.map(lambda word : (word,1))
+rdd4 = rdd3.reduceByKey(lambda x,y : x+y)
+#rdd4.collect() # use with caution as it can bring large amount of data to local
+rdd4.saveAsTextFile("/user/itv005857/data/newoutput") # instead use this to load output to a file
+```

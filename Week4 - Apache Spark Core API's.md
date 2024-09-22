@@ -418,3 +418,6 @@ Other case is after filtering the data, each partition is holding less amount of
 ---
 ##### Cache
 
+If you have bunch of transformations and an action at the end. You have ran the action once and if you run the action again then the results will be cached and will not run all the transformations once again in same spark session.
+
+---

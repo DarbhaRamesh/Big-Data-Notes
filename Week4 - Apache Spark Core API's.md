@@ -317,7 +317,7 @@ For above spark code, how many jobs are created?
 
 In each job, we will have multiple stages. At end of each stage, data is written back to disk and next stage picks the data from disk.
 
-**No. of staged = No. of wide transformations + 1** ( in above case, No. of  stages = 2)
+**No. of stages = No. of wide transformations + 1** ( in above case, No. of  stages = 2)
 
 In each stage, we will have multiple tasks
 

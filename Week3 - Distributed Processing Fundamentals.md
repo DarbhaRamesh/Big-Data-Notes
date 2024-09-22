@@ -223,6 +223,7 @@ spark = SparkSession. \
 	master('yarn'). \
 	getOrCreate()
 rdd1 = spark.sparkContext.textFile("<path to input file>")
+rdd1.take(5) # displays 5 records
 rdd2 = rdd1.flatMap(lambda x : x.split(" "))
 rdd3 = rdd2.map(lambda word : (word,1))
 rdd4 = rdd3.reduceByKey(lambda x,y : x+y)

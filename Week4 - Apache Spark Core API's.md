@@ -420,4 +420,10 @@ Other case is after filtering the data, each partition is holding less amount of
 
 If you have bunch of transformations and an action at the end. You have ran the action once and if you run the action again then the results will be cached and will not run all the transformations once again in same spark session.
 
+If you have multiple stages then first time all the stages will run but if you trigger the action again then all the initial stages will be skipped an only execute from the action stage.
+
+``` python
+rdd.cache() # lazy transformation
+```
+
 ---

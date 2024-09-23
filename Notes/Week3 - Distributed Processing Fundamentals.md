@@ -164,7 +164,7 @@ Databricks is a spark with some extra features
 
 Spark Components
 
-![Spark Components](spark_components.png "Spark Components")
+![Spark Components](../pictures/spark_components.png "Spark Components")
 
 Spark Core API's - you work at the RDD(Resilient Distributed Dataset) level. It is the hardest way to work but offers more flexibility. It is the basic unit which holds data.
 
@@ -176,7 +176,7 @@ Spark Higher level API's
 
 ---
 ##### RDD 
-![RDD HDFS](RDD_using_Hadoop.png "RDD HDFS")
+![RDD HDFS](../pictures/RDD_using_Hadoop.png "RDD HDFS")
 
 pseudo code
 - load file1 from HDFS/ data lake (rdd1)

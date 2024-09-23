@@ -109,3 +109,55 @@ createOrReplaceGlobalTempView will create a spark table which can be accessible 
 orders_df_using_spark_sql = spark.read.table("orders")
 orders_df_using_spark_sql.show(5)
 ```
+
+---
+
+##### Spark SQL
+
+First we have to create database and then we can work with the database by creating tables and much more.
+
+```python
+spark.sql("create database if not exists itv014945_db")
+spark.sql("show databases").show(5)
+spark.sql("show databases").filter("namespace = 'itv014945_db'").show()
+spark.sql("show databases").filter("namespace like 'itv014945_%'").show()
+spark.sql("show tables").show(5) # shows results in default database
+```
+
+``` python
+spark.sql("use itv014945_db") 
+spark.sql("show tables").show(5)
+spark.sql("create table itv014945_db.sampleTable(id integer, name string)")
+spark.sql("show tables").show(5)
+spark.sql("insert into itv014945_db.sampleTable values(1,'Big Data'),(2,'Spark')")
+spark.sql("select * from itv014945_db.sampleTable")
+spark.sql("describe table itv014945_db.sampleTable").show()
+spark.sql("describe extended itv014945_db.sampleTable").show(truncate=False)
+spark.sql("describe formatted itv014945_db.sampleTable").show(truncate=False)
+```
+
+The database will be created in HDFS and you can navigate to see the data which is stored in files
+
+``` console
+hadoop fs -ls -h warehouse/itv014945_db.db/sampletable/
+```
+
+![Spark SQL database in HDFS](./pictures/Spark_sql_database_in_hdfs.png "Spark SQL database in HDFSs")
+
+---
+##### Managed vs External Table
+
+In Managed table, if you drop the table, both **data and metadata** will be whipped off.
+In External table, if you drop the table, only **metadata** will be whipped off.
+
+``` python
+spark.sql("create table itv014945_db.orders_ext (order_id integer,order_date string,customer_id integer,order_status string) using csv location '/public/trendytech/orders/orders.csv'")
+```
+
+Insert will work on external table. Spark engine will create a new file if a directory is given in location but is not advisable to perform inserts on external tables
+
+Update and delete wont work but will work in delta lake.
+
+---
+
+

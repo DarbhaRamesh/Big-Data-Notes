@@ -142,7 +142,7 @@ The database will be created in HDFS and you can navigate to see the data which 
 hadoop fs -ls -h warehouse/itv014945_db.db/sampletable/
 ```
 
-![Spark SQL database in HDFS](./pictures/Spark_sql_database_in_hdfs.png "Spark SQL database in HDFSs")
+![Spark SQL database in HDFS](Spark_sql_database_in_hdfs.png "Spark SQL database in HDFSs")
 
 ---
 ##### Managed vs External Table

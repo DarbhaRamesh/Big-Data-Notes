@@ -159,5 +159,44 @@ Insert will work on external table. Spark engine will create a new file if a dir
 Update and delete wont work but will work in delta lake.
 
 ---
+##### Spark Optimization
 
+1. **Application Code level Optimization** like using cache, use reduceByKey instead of groupByKey
+2. **Cluster Level Optimization** - Is our job getting enough resources(RAM & CPU cores) or not?
+	
+There is concept of **Executor** which is like a container of resources. Which we can use to tune the resource consumption. 1 node can have multiple executors(JVM).
 
+There are two strategies
+
+**Thin Executor** - Intention is to create more executors/containers/JVMs with each one holding minimum possible resources.
+
+Drawbacks -  We will loose benefit of **Multi threading** and lot of copies of **broadcast** variable are required so that each executor receives its own copy
+
+**Fat Executor** -  Intention is to create less executors/containers/JVMs with each one holding maximum possible resources.
+
+Drawbacks - Due to lot of multi threading, **HDFS throughput** suffers. (if there are more than 5 CPU cores then HDFS throughput suffers).
+If a executor holds lot of data in memory then **garbage collection** takes lot of time.
+
+We shouldn't have Thin or Fat Executor instead we should choose balanced approach.
+
+Lets understand this with example.
+
+Lets say you have 10 node cluster, each node with 16 cores and 64GB RAM.
+
+On each node, 1 node will be taken for background activities and 1 GB RAM for OS.
+
+We are left with 15 cores and 63 GB RAM. We know that if there are more than 5 CPU cores then HDFS  throughput suffers. So 5 will be the optimal choice.
+
+We can have 3 executors, each having 5 cores and 21GB RAM.
+
+Out of 21 GB, some part will go for **overhead or off heap memory** = **max(384MB, 7% of executor RAM)**
+
+approximately, 1.5 GB will go for off heap memory and we left with 19 GB RAM.
+
+So, we can have 3 executors with 5 cores and 19GB RAM. In a 10 node cluster, we can have 30 executors. Out of 30, one will be taken by YARN.
+
+Overall on a 10 node cluster each having 16 cores and 64GB RAM. For ideal case, we can have 29 executors each having  5 cores and 19GB RAM.
+
+![Executor](../pictures/executor.png "Executor")
+
+---
